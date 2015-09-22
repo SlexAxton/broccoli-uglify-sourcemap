@@ -124,7 +124,13 @@ UglifyWriter.prototype.processFile = function(inFile, outFile, relativePath, out
     debug('[finsihed]: %s %dKB in %dms', relativePath, (result.code.length / 1000), total);
 
     if (total > 20000) {
-      console.warn('[WARN] `' + relativePath + '` took: ' + total + 'ms (more then 20,000ms)');
+      console.warn(
+        '[WARN] `' + relativePath + '` took: ' + total + 'ms (more then 20,000ms). ' +
+        'This is likely due to the total amount of code that is being minified. You may be ' +
+        'including more than you intended, or re-minifying vendor code that has already been ' +
+        'processed. If you know of files that don\'t need to be minified you can exclude them with' +
+        'the `exclusion` option. See: https://github.com/ef4/broccoli-uglify-sourcemap#usage'
+      );
     }
 
 
